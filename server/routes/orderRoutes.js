@@ -6,6 +6,12 @@ const { body } = require('express-validator');
 const validate = require('../middleware/validate');
 
 router.use(protect);
+
+// Admin routes MUST come before /:id to avoid param conflict
+router.get('/admin/all', adminOnly, getAllOrders);
+router.get('/admin/report', adminOnly, getSalesReport);
+router.put('/admin/:id/status', adminOnly, [body('status').notEmpty().withMessage('Status required')], validate, updateOrderStatus);
+
 router.post('/', [
   body('shippingAddress').isObject().withMessage('Shipping address is required'),
   body('shippingAddress.full_name').notEmpty().withMessage('Full name required'),
@@ -18,10 +24,5 @@ router.post('/', [
 router.get('/', getUserOrders);
 router.get('/:id', getOrderById);
 router.put('/:id/cancel', cancelOrder);
-
-// Admin routes
-router.get('/admin/all', adminOnly, getAllOrders);
-router.get('/admin/report', adminOnly, getSalesReport);
-router.put('/admin/:id/status', adminOnly, [body('status').notEmpty().withMessage('Status required')], validate, updateOrderStatus);
 
 module.exports = router;

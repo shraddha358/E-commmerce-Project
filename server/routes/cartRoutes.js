@@ -12,7 +12,7 @@ router.post('/', [
   body('quantity').optional().isInt({ min: 1 }).withMessage('Quantity must be >= 1'),
 ], validate, addToCart);
 router.put('/:id', [body('quantity').isInt({ min: 1 }).withMessage('Quantity must be >= 1')], validate, updateCartItem);
-router.delete('/clear', clearCart);
+router.delete('/clear', clearCart);  // must be before /:id
 router.delete('/:id', removeCartItem);
 
 module.exports = router;

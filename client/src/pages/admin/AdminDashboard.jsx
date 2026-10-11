@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { FiUsers, FiPackage, FiShoppingCart, FiDollarSign, FiAlertTriangle } from 'react-icons/fi';
+import { FiUsers, FiPackage, FiShoppingCart, FiDollarSign, FiAlertTriangle, FiGrid } from 'react-icons/fi';
 import { adminAPI, orderAPI } from '../../services/api';
 import { Loader } from '../../components/ui/UI';
+import AdminNav from '../../components/admin/AdminNav';
 import './Admin.css';
 
 const StatCard = ({ icon, label, value, color, sub }) => (
@@ -40,6 +41,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-page">
+      <AdminNav />
       <div className="admin-page-header">
         <h1>Dashboard</h1>
         <p>Welcome back! Here's what's happening.</p>
